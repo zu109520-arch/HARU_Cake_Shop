@@ -3,9 +3,10 @@ body {
     background-color: #ffffff;
     margin: 0;
     padding: 0;
+    /* 這裡設定全站統一字體：優先使用系統預設的高質感黑體 */
     font-family: "PingFang TC", "Heiti TC", "Microsoft JhengHei", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    color: #4a4a4a;
+    -webkit-font-smoothing: antialiased; /* 讓字體在 Mac/iPhone 上看起來更細緻 */
+    color: #4a4a4a; /* 全站文字顏色統一使用炭灰色 */
 }
 
 /* 頂部導覽列 */
@@ -16,46 +17,87 @@ body {
     height: 70px;
     background-color: #ffffff;
     padding: 0 40px;
+    
+    /* 替代方案 A：用細緻的底線取代粗糙的 <hr> */
     border-bottom: 1px solid #f5f5f5; 
+    
+    /* 替代方案 B：增加下方外距，推開 Banner */
     margin-bottom: 30px; 
+    
     position: sticky;
     top: 0;
     z-index: 1000;
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* 導覽列佈局與 Icon */
-.welcome .right {
+#product-list {
+    width: 95%;
+    max-width: 750px; /* 剛才討論過縮小一點更好看 */
+    margin: 20px auto 100px auto;
+    border-collapse: collapse;
+}
+
+.left {
+    font-size: 22px;
+    font-weight: normal;
+    color: #333;
+    letter-spacing: 2px;
+}
+
+.right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 25px; /* 自動拉開搜尋、會員、購物車的距離 */
 }
 
-.nav-item-group {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    cursor: pointer;
-}
-
-.nav-icon {
-    width: 24px;
-    height: 24px;
-    object-fit: contain;
-    display: block;
-}
-
-.nav-text {
+.right span {
     font-size: 14px;
     color: #666;
+    cursor: pointer;
     transition: 0.3s;
 }
 
-.nav-item-group:hover .nav-text {
+.right span:hover {
     color: #ffcccc;
 }
 
-/* --- 2. 廣告 Banner 區 --- */
+.btn-clear {
+    background: white;
+    border: 1px solid #ddd;
+    padding: 4px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 12px;
+    color: #888;
+    transition: 0.3s;
+}
+
+.btn-clear:hover {
+    border-color: #ffcccc;
+    color: #ffcccc;
+}
+
+/* --- 2. 分類與廣告區 --- */
+ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 30px 0;
+    display: flex;
+    justify-content: center;
+}
+
+ul li { margin: 0 20px; }
+
+ul li a {
+    text-decoration: none;
+    color: #555;
+    font-weight: bold;
+    transition: 0.3s;
+    letter-spacing: 1px;
+}
+
+ul li a:hover { color: #ffcccc; }
+
 .main-banner {
     width: 90%;
     max-width: 850px;
@@ -78,70 +120,133 @@ body {
 
 .banner-img.active { opacity: 1; }
 
-/* --- 3. 商品列表展示 --- */
-#product-list {
+.banner-dots {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    background-color: #fefefe;
-    padding: 20px;
+    gap: 12px;
+    z-index: 10;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.dot.active { background-color: #fff; transform: scale(1.3); }
+
+/* --- 3. 商品區標題與促銷 --- */
+.text {
+    text-align: center;
+    margin: 60px 0 20px 0;
+    font-size: 24px;
+    color: #444;
+    letter-spacing: 3px;
+}
+
+.promo-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.keyword {
+    display: inline-block;
+    padding: 8px 20px;
+    background-color: #fff5f5;
+    color: #ff4d4f;
+    border: 1px solid #ffa39e;
+    border-radius: 30px;
+    font-size: 14px;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 10px rgba(255, 77, 79, 0.1);
+}
+
+/* --- 4. 商品表格與氣泡 --- */
+table {
     width: 95%;
     max-width: 850px;
     margin: 20px auto 100px auto;
-    animation: fadeInUp 1s ease-out forwards;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.03);
+    border-radius: 15px;
 }
 
-.cake-card h4 {
-    margin: 15px 0 5px;
-    font-size: 1.1rem;
-    color: #333;
-    height: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+td {
+    border: none !important;
+    padding: 15px 10px;
     text-align: center;
-    overflow: hidden;
-    line-height: 1.4;
+    vertical-align: top;
+    position: relative;
 }
 
-.cake-card:hover {
-    transform: translateY(-5px);
+table img {
+    width: 100%;
+    max-width: 160px;
+    border-radius: 12px;
+    margin-bottom: 5px;
+    transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+table img:hover { transform: translateY(-10px); }
+
+.btn {
+    cursor: pointer;
+    padding: 8px 20px;
+    background-color: #ffffff !important;
+    color: #333 !important;
+    border: 1px solid #333 !important;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 13px;
     transition: 0.3s;
-    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+    text-decoration: none;
 }
 
-/* --- 4. 配送資訊表單 (購物車頁面) --- */
-.shipping-form {
-    margin-top: 30px;
-    padding: 30px;
-    background: #fffafa;
-    border-radius: 20px;
-    border: 1px solid #ffecec;
+.btn:hover {
+    color: #ff4d4f !important;
+    border-color: #ff4d4f !important;
 }
 
-.form-row {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 15px;
-}
-
-.form-group {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-
-.shipping-form input {
-    padding: 12px 15px;
-    border: 1.5px solid #eee;
+.options-container {
+    position: absolute;
+    bottom: 80%; 
+    left: 50%;
+    transform: translateX(-50%) translateY(0);
+    background: white;
+    border: 1px solid #eee;
+    padding: 12px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.12);
     border-radius: 10px;
-    font-size: 15px;
-    transition: all 0.3s;
-    background: #fff;
+    z-index: 100;
+    width: 150px;
+    text-align: left;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.3s ease;
 }
 
-/* --- 5. 頁尾 Footer --- */
+td:hover .options-container {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(-10px);
+}
+
+/* 氣泡內的文字樣式 */
+.options-container label {
+    display: block;
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+/* --- 5. 頁尾 Footer 最終校正：全數靠左對齊 --- */
 .footer {
     background-color: #fafafa;
     padding: 80px 0 0 0;
@@ -150,6 +255,7 @@ body {
 }
 
 .footer-content {
+    /* 縮窄寬度到 800px，讓三塊資訊靠近一點，視覺更平衡 */
     max-width: 800px; 
     margin: 0 auto;
     display: flex;
@@ -158,27 +264,741 @@ body {
     padding: 0 20px 60px 20px;
 }
 
+.footer-section {
+    /* 平分空間，但內容全部向左看齊 */
+    flex: 1; 
+    text-align: left; 
+}
+
+/* 標題樣式統一 */
+.footer-logo, .footer-section h4 {
+    color: #4a4a4a;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+/* 內文樣式：增加行高與字距 */
+.footer-section p, .footer-links a {
+    font-size: 14px;
+    color: #888;
+    line-height: 2; /* 增加行間距，讓排版有呼吸感 */
+    margin: 5px 0;
+    text-decoration: none;
+    transition: 0.3s;
+    display: block; /* 讓連結變成整行，方便點擊 */
+}
+
+.footer-links a:hover {
+    color: #ffcccc;
+    padding-left: 5px; /* 滑鼠移上去稍微往右縮排，增加互動感 */
+}
+
+/* --- 頁尾最底部：淡雅精細版 --- */
 .footer-bottom {
-    background-color: #fafafa;
-    border-top: 1px solid #eeeeee !important;
+    background-color: #fafafa; /* 回歸跟 Footer 一樣的極淺灰，或比它深一點點點點 (#f8f8f8) */
+    border-top: 1px solid #eeeeee !important; /* 線條調得更淡，不要太黑 */
     text-align: center;
-    padding: 15px 0;
+    padding: 15px 0; /* 縮小上下高度 */
     width: 100%;
 }
 
 .footer-bottom p {
     margin: 0;
-    font-size: 11px;
-    color: #9e9e9e;
-    letter-spacing: 2px;
-    font-weight: 300;
+    font-size: 11px; /* 字體調到最小，增加專業感 */
+    color: #9e9e9e; /* 顏色調淡 */
+    letter-spacing: 2px; /* 增加字距，讓細小的字看起來更有設計感 */
+    font-weight: 300; /* 字體調細 */
+    text-transform: uppercase; /* 如果有英文，全大寫會更有精品感 */
+}
+
+
+/* 確保內容容器沒有頂部擠壓 */
+.footer-section p {
+    margin: 8px 0; /* 增加上下間距 */
+    line-height: 1.6;
+    color: #777;
+    font-size: 14px;
+}
+
+/* --- 6. RWD 手機版優化 (新增) --- */
+@media (max-width: 600px) {
+    .welcome {
+        padding: 0 20px;
+        flex-direction: column; /* 手機版店名與選單上下排 */
+        height: auto;
+        padding-bottom: 15px;
+    }
+    
+    .right {
+        margin-top: 10px;
+        gap: 15px;
+    }
+
+    .footer-content {
+        flex-direction: column; /* 頁尾三塊在手機上變成垂直排列 */
+        gap: 30px;
+        text-align: center;
+    }
+
+    .footer-section {
+        width: 100%;
+        text-align: center; /* 手機版頁尾文字置中比較美觀 */
+    }
+
+    /* 讓表格在手機上可以左右滑動，不會爆版 */
+    #product-list {
+        display: block;
+        overflow-x: auto;
+    }
+}
+
+/* --- 5.5 動態進場效果 (新增) --- */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px); /* 從下方 30px 的位置 */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);    /* 回到原位 */ 
+    }
+}
+
+#product-list {
+    /* 應用動畫：持續 1 秒，平滑減速進場 */
+    animation: fadeInUp 1s ease-out forwards;
+}
+
+/* 讓廣告 Banner 也有稍微慢一點點的進場感 */
+.main-banner {
+    animation: fadeInUp 0.8s ease-out forwards;
+}
+
+/* 彈窗背景遮罩 */
+.promo-modal {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+/* 彈窗主體 */
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.stock-alert {
+    background-color: #fff1f0; /* 淺紅色背景 */
+    border: 1px solid #ffa39e;
+    padding: 10px;
+    margin: 20px 0;
+    text-align: center;
+    border-radius: 8px;
+    font-weight: bold;
+}
+
+.modal-content button {
+    background-color: #ff4d4f;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+.modal-content button:hover {
+    background-color: #ff7875;
+}
+
+/* 讓商品列表變成橫向排列，且會自動換行 */
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #f7f7f7; /* 給背景一點粉嫩感 */
+    padding: 20px;
+}
+
+/* 滑鼠移到蛋糕卡片上時，有一點點浮起來的效果 */
+.cake-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* 讓商品列表變成橫向排列，且會自動換行 */
+#product-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    background-color: #fefefe; /* 給背景一點粉嫩感 */
+    padding: 20px;
+}
+
+/* 滑鼠移到蛋糕卡片上時，有一點點浮起來的效果 */
+.cake-card:hover {
+    transform: translateY(-5px);
+    transition: 0.3s;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1) !important;
+}
+
+/* src/App.css */
+
+.cake-card h4 {
+    margin: 15px 0 5px;
+    font-size: 1.1rem;
+    color: #333;
+    /* --- 關鍵置中對齊設定 --- */
+    height: 3rem;          /* 固定高度，大約是兩行字的高度 */
+    display: flex;
+    align-items: center;    /* 垂直置中 */
+    justify-content: center; /* 水平置中 */
+    overflow: hidden;       /* 防止字數太多爆出去 */
+    line-height: 1.4;
+}
+
+/* Banner 基礎樣式 */
+.main-banner {
+    width: 90%;
+    max-width: 850px;
+    height: 400px;
+    margin: 0 auto 40px auto;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+}
+
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 1.2s ease-in-out;
+}
+
+.banner-img.active {
+    opacity: 1;
+}
+
+/* Footer 樣式補強 */
+.footer-content {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    padding: 40px 20px;
+    text-align: left;
+}
+
+.footer-section h4 {
+    margin-bottom: 15px;
+    color: #4a4a4a;
+}
+
+.footer-links a {
+    display: block;
+    color: #888;
+    text-decoration: none;
+    margin-bottom: 5px;
+}
+
+/* --- 導覽列 Icon 與 RWD 設定 --- */
+
+.nav-item-group {
+    display: flex;
+    align-items: center;
+    gap: 8px; /* 文字與 Icon 的間距 */
+    cursor: pointer;
+}
+
+.nav-icon {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+}
+
+.nav-text {
+    font-size: 14px;
+    color: #666;
+    transition: 0.3s;
+}
+
+.nav-item-group:hover .nav-text {
+    color: #ffcccc;
+}
+
+/* --- 導覽列佈局修正 --- */
+.welcome {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 40px;
+    height: 80px;
+}
+
+.welcome .right {
+    display: flex;
+    align-items: center;
+    gap: 20px; /* 控制項目間的距離 */
+}
+
+.nav-item-group {
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Icon 與文字間的距離 */
+    cursor: pointer;
+}
+
+.nav-icon {
+    width: 24px;   /* 設定固定寬度 */
+    height: 24px;  /* 設定固定高度 */
+    object-fit: contain;
+    display: block; /* 確保圖示顯示 */
+}
+
+/* 📱 響應式邏輯：當寬度小於 768px 時 */
+@media (max-width: 768px) {
+    .nav-text {
+        display: none; /* 隱藏文字 */
+    }
+    
+    .welcome .right {
+        gap: 15px; /* 手機版間距縮小 */
+    }
+}
+
+/* 登入頁背景容器 */
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 80vh;
+  padding: 20px;
+}
+
+/* 登入卡片本體 */
+.login-card {
+  background: #ffffff;
+  padding: 50px 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+  width: 100%;
+  max-width: 400px;
+  position: relative; /* 為了讓返回按鈕定位 */
+  border: 1px solid #f5f5f5;
+}
+
+/* 返回連結 */
+.btn-back-link {
+  position: absolute;
+  top: 25px;
+  left: 25px;
+  background: none;
+  border: none;
+  color: #aaa;
+  font-size: 13px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.btn-back-link:hover {
+  color: #666;
+}
+
+/* 標題區塊 */
+.login-header {
+  margin-bottom: 35px;
+  text-align: center;
+}
+
+.login-logo {
+  font-size: 45px;
+  margin-bottom: 10px;
+}
+
+.login-header h2 {
+  font-size: 1.6rem;
+  color: #333;
+  margin: 0 0 8px 0;
+}
+
+.login-header p {
+  color: #999;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* 輸入欄位組 */
+.input-group {
+  text-align: left;
+  margin-bottom: 20px;
+}
+
+.input-group label {
+  display: block;
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 8px;
+  font-weight: 500;
+  padding-left: 4px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1.5px solid #eee;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  box-sizing: border-box;
+}
+
+.input-group input:focus {
+  border-color: #ffb3b3;
+  background-color: #fffcfc;
+  outline: none;
+  box-shadow: 0 0 10px rgba(255, 179, 179, 0.15);
+}
+
+/* 登入按鈕 */
+.btn-login-submit {
+  width: 100%;
+  padding: 15px;
+  background: #4a4a4a;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 10px;
+}
+
+.btn-login-submit:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+/* 底部文字 */
+.login-footer-text {
+  margin-top: 25px;
+  font-size: 13px;
+  color: #999;
+  text-align: center;
+}
+
+.login-footer-text a {
+  color: #ff4d4f;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+/* 購物車頁面樣式 */
+.cart-page-container {
+    display: flex;
+    justify-content: center;
+    padding: 50px 20px;
+    background-color: #fefefe;
+    min-height: 60vh;
+}
+
+.cart-box {
+    background: white;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    width: 100%;
+    max-width: 600px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid #eee;
+    gap: 20px;
+}
+
+.cart-item-img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cart-item-info h4 { margin: 0; color: #333; }
+.cart-item-info p { margin: 5px 0; color: #ff4d4f; font-weight: bold; }
+
+.cart-summary {
+    margin-top: 30px;
+    text-align: right;
+}
+
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.btn-checkout {
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.btn-clear-all {
+    background: #eee;
+    color: #666;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.cart-item-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.custom-tag {
+    background: #fff5f5;
+    color: #ff4d4f;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid #ffa39e;
+}
+
+.cart-item-custom {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 5px 0;
+}
+
+.custom-tag {
+    background: #fff5f5;
+    color: #ff4d4f;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 10px;
+    border: 1px solid #ffa39e;
+    font-weight: bold;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #f5f5f5;
+  padding: 5px 15px;
+  border-radius: 20px;
+  margin-right: 15px;
+}
+
+.search-input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 8px;
+  font-size: 14px;
+  width: 120px;
+  transition: width 0.3s;
+}
+
+.search-input:focus {
+  width: 180px; /* 點擊時變長，很有動感 */
+}
+
+
+/* 表單外層容器 */
+.shipping-form {
+  margin-top: 30px;
+  padding: 30px;
+  background: #fffafa; /* 淡淡的粉紅底色 */
+  border-radius: 20px;
+  border: 1px solid #ffecec;
+}
+
+.form-title {
+  font-size: 1.2rem;
+  color: #4a4a4a;
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+/* 讓姓名和電話並排 */
+.form-row {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+}
+
+.form-group label {
+  font-size: 13px;
+  color: #888;
+  margin-bottom: 5px;
+  padding-left: 5px;
+}
+
+/* 輸入框精緻化 */
+.shipping-form input {
+  padding: 12px 15px;
+  border: 1.5px solid #eee;
+  border-radius: 10px;
+  font-size: 15px;
+  transition: all 0.3s;
+  background: #fff;
+}
+
+.shipping-form input:focus {
+  border-color: #ffb3b3;
+  box-shadow: 0 0 8px rgba(255, 179, 179, 0.3);
+  outline: none;
+}
+
+/* 地址欄位獨立一行 */
+.full-width {
+  width: 100%;
+}
+
+/* 總結區塊優化 */
+.cart-summary-box {
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 2px dashed #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.total-price span:first-child {
+  color: #999;
+  font-size: 14px;
+}
+
+.price-amount {
+  display: block;
+  font-size: 1.8rem;
+  color: #ff4d4f;
+  font-weight: bold;
+}
+
+.btn-checkout-final {
+  background: #4a4a4a;
+  color: white;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s;
+}
+
+.btn-checkout-final:hover {
+  background: #222;
+  transform: translateY(-2px);
+}
+
+.status-normal { background-color: #e3f2fd; color: #1976d2; } /* 藍色 */
+.status-warning { background-color: #fff3e0; color: #ef6c00; font-weight: bold; } /* 橘色 */
+.status-soldout { background-color: #eeeeee; color: #9e9e9e; cursor: not-allowed; } /* 灰色 */
+
+/* 現代化輸入框 */
+.modern-input {
+  width: 100%;
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.modern-input:focus {
+  border-color: #ff4d4f;
+  outline: none;
+}
+
+/* 現代化結帳按鈕 */
+.btn-checkout-final {
+  background: #ff4d4f;
+  color: #fff;
+  border: none;
+  padding: 15px 40px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s;
+  box-shadow: 0 4px 15px rgba(255, 77, 79, 0.3);
+}
+
+.btn-checkout-final:hover {
+  background: #ff7875;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255, 77, 79, 0.4);
+}
+
+/* 清空購物車按鈕 */
+.btn-clear-all {
+  background: transparent;
+  color: #ff4d4f;
+  border: 1px solid #ff4d4f;
+  padding: 6px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: all 0.3s;
+}
+
+.btn-clear-all:hover {
+  background: #fff1f0;
+}
+
+/* 數量按鈕微調 */
+.qty-btn:hover {
+  background: #f0f0f0 !important;
 }
 
 /* =========================================
-   📱 針對手機版 (RWD) 的精細微調 (優化完成)
+   📱 針對手機版 (RWD) 的精細微調
    ========================================= */
 @media (max-width: 600px) {
-    /* 導覽列變更 */
+    /* 頂部導覽列調整 */
     .welcome {
         padding: 0 20px;
         flex-direction: column; 
@@ -186,52 +1006,60 @@ body {
         padding-bottom: 15px;
     }
     
-    .nav-text {
-        display: none; /* 手機版隱藏文字，只留圖示 */
+    .right {
+        margin-top: 10px;
+        gap: 15px;
     }
 
-    /* 1. 圖片與廣告區修正 (image_8.png) */
+    /* 1. 廣告 Banner 比例修正 (讓圖片在手機上維持美感) */
     .main-banner {
-        height: 250px !important;
+        height: 250px !important; /* 縮小手機版高度 */
         width: 95%;
         margin-bottom: 30px;
     }
     .banner-img {
-        object-fit: cover;
+        object-fit: cover; /* 確保蛋糕不會扁掉 */
     }
 
-    /* 2. 配送資訊白色長條縮短並置中 (image_7.png) */
+    /* 2. 配送資訊「白色長條」優化：縮短並置中 */
     .shipping-form {
-        padding: 20px 10px;
+        padding: 20px 10px; /* 縮小外層容器內距 */
     }
 
     .shipping-form input, 
     .form-group input {
-        width: 85% !important;   /* 縮短寬度，視覺不壓迫 */
-        margin: 0 auto 10px auto; /* 水平置中 */
-        display: block;          
+        /* 縮短寬度至 85%，預留左右呼吸空間 */
+        width: 85% !important;   
+        margin: 0 auto 10px auto; /* 水平置中並給下方間距 */
+        display: block;          /* 強制置中生效 */
         box-sizing: border-box;
     }
 
     .form-group label {
         width: 85%;
-        margin: 0 auto 5px auto;
+        margin: 0 auto 5px auto; /* 標題跟著輸入框一起置中 */
         display: block;
         text-align: left;
         padding-left: 5px;
+        font-size: 13px;
     }
 
+    /* 姓名與電話垂直排列 */
     .form-row {
         flex-direction: column;
         align-items: center;
         gap: 0; 
     }
 
-    /* 3. Footer 底部文字修正 (image_6.png) */
+    /* 3. 頁尾 Footer 優化 */
+    .footer {
+        padding: 30px 15px !important; 
+        text-align: center;
+    }
+
     .footer-content {
         flex-direction: column;
-        gap: 30px;
-        text-align: center;
+        gap: 25px;
     }
 
     .footer-section {
@@ -239,15 +1067,22 @@ body {
         text-align: center;
     }
 
+    /* 針對底部名字的微調 (image_6.png) */
+    .footer-bottom {
+        padding: 15px 0;
+    }
+
     .footer-bottom p {
         font-size: 11px !important;
         letter-spacing: 1px;
         padding: 0 20px;
+        color: #9e9e9e;
     }
-}
 
-/* 動畫設定 */
-@keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(30px); }
-    to { opacity: 1; transform: translateY(0); }
+    /* 商品列表在手機上滑動效果 */
+    #product-list {
+        display: block;
+        overflow-x: auto;
+        padding: 10px;
+    }
 }
