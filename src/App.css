@@ -998,91 +998,59 @@ td:hover .options-container {
    📱 針對手機版 (RWD) 的精細微調
    ========================================= */
 @media (max-width: 600px) {
-    /* 頂部導覽列調整 */
-    .welcome {
-        padding: 0 20px;
-        flex-direction: column; 
-        height: auto;
-        padding-bottom: 15px;
-    }
-    
-    .right {
-        margin-top: 10px;
-        gap: 15px;
-    }
 
-    /* 1. 廣告 Banner 比例修正 (讓圖片在手機上維持美感) */
-    .main-banner {
-        height: 250px !important; /* 縮小手機版高度 */
-        width: 95%;
-        margin-bottom: 30px;
-    }
-    .banner-img {
-        object-fit: cover; /* 確保蛋糕不會扁掉 */
-    }
+  /* ---------------------------------------
+     1. 圖片比例修正 (針對 image_8.png)
+     讓 Banner 圖片在手機上不要被拉長，保持正方形或自然比例
+  --------------------------------------- */
+  .banner-img {
+    object-fit: cover; /* 保持圖片比例填充，切掉多餘部分 */
+    height: 100%;      /* 滿高度 */
+    width: 100%;       /* 滿寬度 */
+  }
+  
+  /* 如果妳希望 Banner 在手機上矮一點，看起來比較精緻 */
+  .main-banner {
+    height: 250px !important; /* 強制縮小手機版 Banner 高度 */
+  }
 
-    /* 2. 配送資訊「白色長條」優化：縮短並置中 */
-    .shipping-form {
-        padding: 20px 10px; /* 縮小外層容器內距 */
-    }
+  /* ---------------------------------------
+     2. 配送資訊欄位修正 (針對 image_7.png)
+     讓姓名和電話欄位在手機上「垂直排列」，不要擠在一起
+  --------------------------------------- */
+  /* 找到包住姓名和電話的 input-group (假設 class 是這個) */
+  .form-row { 
+    display: flex;
+    flex-direction: column; /* 強制垂直排列 */
+    gap: 10px;              /* 欄位中間給點距離 */
+  }
 
-    .shipping-form input, 
-    .form-group input {
-        /* 縮短寬度至 85%，預留左右呼吸空間 */
-        width: 85% !important;   
-        margin: 0 auto 10px auto; /* 水平置中並給下方間距 */
-        display: block;          /* 強制置中生效 */
-        box-sizing: border-box;
-    }
+  /* 讓每個輸入框佔滿寬度 */
+  .form-row input {
+    width: 100% !important;
+    box-sizing: border-box; /* 確保 padding 不會撐破寬度 */
+  }
 
-    .form-group label {
-        width: 85%;
-        margin: 0 auto 5px auto; /* 標題跟著輸入框一起置中 */
-        display: block;
-        text-align: left;
-        padding-left: 5px;
-        font-size: 13px;
-    }
+  /* ---------------------------------------
+     3. 最底部名字修正 (針對 image_6.png)
+     讓 Footer 文字變小、置中，增加呼吸空間
+  --------------------------------------- */
+  .footer {
+    padding: 30px 15px !important; /* 縮小上下內距 */
+    text-align: center;            /* 所有文字置中 */
+  }
 
-    /* 姓名與電話垂直排列 */
-    .form-row {
-        flex-direction: column;
-        align-items: center;
-        gap: 0; 
-    }
+  /* 讓三塊資訊在手機上垂直堆疊 */
+  .footer-content {
+    flex-direction: column;
+    gap: 20px;
+  }
 
-    /* 3. 頁尾 Footer 優化 */
-    .footer {
-        padding: 30px 15px !important; 
-        text-align: center;
-    }
-
-    .footer-content {
-        flex-direction: column;
-        gap: 25px;
-    }
-
-    .footer-section {
-        width: 100%;
-        text-align: center;
-    }
-
-    /* 針對底部名字的微調 (image_6.png) */
-    .footer-bottom {
-        padding: 15px 0;
-    }
-
-    .footer-bottom p {
-        font-size: 11px !important;
-        letter-spacing: 1px;
-        padding: 0 20px;
-        color: #9e9e9e;
-    }
-
-    /* 商品列表在手機上滑動效果 */
-    #product-list {
-        display: block;
-        overflow-x: auto;
-        padding: 10px;
-    }
+  /* 針對妳的名字（假設在 footer-bottom p） */
+  .footer-bottom p {
+    font-size: 12px !important;    /* 字體變小，看起來優雅點 */
+    line-height: 1.6;
+    color: #888;
+    margin: 10px 0;
+  }
 }
