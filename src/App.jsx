@@ -6,28 +6,7 @@ import './App.css'
 import HomePage from './HomePage'
 import LoginPage from './LoginPage'
 import CartPage from './CartPage' 
-
-const cakeData = [
-  { 
-    "name": "草莓戚風蛋糕", 
-    "price": 500, 
-    "image": "strawberry-cake.jpg", 
-    // 這裡的 status 拿掉，因為 CakeCard 會自己算
-    "options": [{ "label": "加蠟燭", "price": 10 }, { "label": "加鮮奶油", "price": 30 }] 
-  },
-  { 
-    "name": "巧克力蛋糕", 
-    "price": 600, 
-    "image": "chocolate-cake.jpg", 
-    "options": [{ "label": "加蠟燭", "price": 10 }, { "label": "加鮮奶油", "price": 30 }] 
-  },
-  { 
-    "name": "草莓檸檬威風蛋糕", 
-    "price": 580, 
-    "image": "strawberry-lemon-cake.jpg", 
-    "options": [{ "label": "加蠟燭", "price": 10 }, { "label": "加鮮奶油", "price": 30 }] 
-  }
-];
+import cakeData from './data/CakeData'
 
 const bannerImages = ["/image/strawberry-cake.jpg", "/image/chocolate-cake.jpg", "/image/strawberry-lemon-cake.jpg"];
 

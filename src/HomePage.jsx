@@ -7,14 +7,18 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       {/* 1. Banner 輪播區塊 */}
       <div className="main-banner">
         <div className="banner-wrapper">
-          {bannerImages.map((img, index) => (
-            <img 
-              key={index}
-              src={img} 
-              className={`banner-img ${index === currentSlide ? 'active' : ''}`} 
-              alt="Banner" 
-            />
-          ))}
+        {bannerImages.map((img, index) => (
+          <img 
+            key={index}
+            src={img} 
+            className={`banner-img ${index === currentSlide ? 'active' : ''}`} 
+            alt="Banner"
+            style={index === 2 
+          ? { objectPosition: 'center center' } 
+          : { objectPosition: 'center top' }
+        }
+          />
+        ))}
         </div>
         <div className="banner-dots">
           {bannerImages.map((_, index) => (
