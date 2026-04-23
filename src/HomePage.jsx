@@ -7,23 +7,23 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       {/* 1. Banner 輪播區塊 */}
       <div className="main-banner">
         <div className="banner-wrapper">
-        {bannerImages.map((img, index) => (
-          <img 
-            key={index}
-            src={img} 
-            className={`banner-img ${index === currentSlide ? 'active' : ''}`} 
-            alt="Banner"
-            style={index === 2 
-          ? { objectPosition: 'center center' } 
-          : { objectPosition: 'center top' }
-        }
-          />
-        ))}
+          {bannerImages.map((img, index) => (
+            <img
+              key={index}
+              src={img}
+              className={`banner-img ${index === currentSlide ? 'active' : ''}`}
+              alt="Banner"
+              style={index === 2
+                ? { objectPosition: 'center center' }
+                : { objectPosition: 'center top' }
+              }
+            />
+          ))}
         </div>
         <div className="banner-dots">
           {bannerImages.map((_, index) => (
-            <span 
-              key={index} 
+            <span
+              key={index}
               className={`dot ${index === currentSlide ? 'active' : ''}`}
               onClick={() => setCurrentSlide(index)}
             ></span>
@@ -39,16 +39,14 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       {/* 3. 商品列表區塊 */}
       <div className="text">所有商品</div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
-
-
-{cakeData.map((cake, index) => (
-  <CakeCard 
-    key={index} 
-    cake={cake} 
-    onAddToCart={handleAddToCart} 
-    stock={stock}  // <--- 這行沒加的話，按鈕就不會自動鎖死喔！
-  />
-))}
+        {cakeData.map((cake) => (
+          <CakeCard
+            key={cake.name}
+            cake={cake}
+            onAddToCart={handleAddToCart}
+            stock={stock}
+          />
+        ))}
       </div>
     </>
   );
