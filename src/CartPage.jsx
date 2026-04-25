@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-function CartPage({ cartItems, onClear, updateQuantity, stock }) {
+function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
   const [formData, setFormData] = useState({ name: '', phone: '', address: '' });
 
   const total = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
@@ -11,26 +11,33 @@ function CartPage({ cartItems, onClear, updateQuantity, stock }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  // ===== 結帳驗證：用 setToast 取代 alert，提升 UX =====
   const handleCheckout = (e) => {
     e.preventDefault();
 
-    if (cartItems.length === 0) return alert("購物車是空的喔！");
+    if (cartItems.length === 0) {
+      setToast("購物車是空的喔！")
+      return
+    }
 
     const nameRule = /^[a-zA-Z\u4e00-\u9fa5]{2,}$/;
     if (!nameRule.test(formData.name)) {
-      return alert("請輸入正確的姓名（至少兩個字，且不含數字）");
+      setToast("請輸入正確的姓名（至少兩個字，且不含數字）")
+      return
     }
 
     const phoneRule = /^09\d{8}$/;
     if (!phoneRule.test(formData.phone)) {
-      return alert("請輸入正確的手機號碼（範例：0912345678）");
+      setToast("請輸入正確的手機號碼（範例：0912345678）")
+      return
     }
 
     if (!formData.address.includes('市') && !formData.address.includes('縣')) {
-      return alert("地址請包含縣市名稱，以便外送員尋找喔！");
+      setToast("地址請包含縣市名稱，以便外送員尋找喔！")
+      return
     }
 
-    alert(`🎉 訂購成功！\n------------------\n收件人：${formData.name}\n總金額：$${total}\n------------------\n感謝您的訂購，蛋糕準備中！`);
+    setToast(`🎉 訂單成立！感謝 ${formData.name} 的訂購，總金額 $${total}`)
     onClear();
   };
 
@@ -60,19 +67,16 @@ function CartPage({ cartItems, onClear, updateQuantity, stock }) {
         ) : (
           <>
             <div className="cart-items-list">
-              {/* 修正：用 name + 選項組合當唯一 key，不用 index */}
               {cartItems.map((item, index) => {
                 const optionsKey = item.selectedOptions ? item.selectedOptions.map(o => o.label).join('-') : '';
                 const uniqueKey = `${item.name}-${optionsKey || index}`;
                 return (
                   <div key={uniqueKey} className="cart-item-modern" style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    padding: '20px 0',
-                    borderBottom: '1px solid #eee',
-                    gap: '20px'
+                    display: 'flex', alignItems: 'center',
+                    padding: '20px 0', borderBottom: '1px solid #eee', gap: '20px'
                   }}>
-                    <img src={`/image/${item.image}`} className="cart-item-img" alt={item.name} style={{ width: '80px', height: '80px', borderRadius: '10px', objectFit: 'cover' }} />
+                    <img src={`/image/${item.image}`} className="cart-item-img" alt={item.name}
+                      style={{ width: '80px', height: '80px', borderRadius: '10px', objectFit: 'cover' }} />
 
                     <div className="cart-item-info" style={{ flex: 1 }}>
                       <h4 style={{ margin: '0 0 5px 0', fontSize: '18px' }}>{item.name}</h4>
@@ -80,7 +84,10 @@ function CartPage({ cartItems, onClear, updateQuantity, stock }) {
                       {item.selectedOptions && item.selectedOptions.length > 0 && (
                         <div className="cart-item-custom" style={{ marginBottom: '10px' }}>
                           {item.selectedOptions.map((opt, i) => (
-                            <span key={i} className="custom-tag" style={{ background: '#fff0f0', color: '#ff4d4f', padding: '2px 8px', borderRadius: '4px', fontSize: '12px', marginRight: '5px' }}>
+                            <span key={i} className="custom-tag" style={{
+                              background: '#fff0f0', color: '#ff4d4f',
+                              padding: '2px 8px', borderRadius: '4px', fontSize: '12px', marginRight: '5px'
+                            }}>
                               +{opt.label}
                             </span>
                           ))}
@@ -91,32 +98,27 @@ function CartPage({ cartItems, onClear, updateQuantity, stock }) {
                         <p style={{ margin: 0, fontWeight: 'bold', color: '#ff4d4f' }}>${item.price}</p>
 
                         <div className="qty-controls" style={{ display: 'flex', alignItems: 'center', gap: '15px' }}>
-                          <button
-                            className="qty-btn"
-                            onClick={() => updateQuantity(index, -1)}
-                            style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #ddd', background: '#fff', cursor: 'pointer' }}
-                          >-</button>
+                          <button className="qty-btn" onClick={() => updateQuantity(index, -1)}
+                            style={{ width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #ddd', background: '#fff', cursor: 'pointer' }}>
+                            -
+                          </button>
 
                           <span style={{ minWidth: '20px', textAlign: 'center', fontWeight: 'bold' }}>{item.quantity || 1}</span>
 
-                          <button
-                            className="qty-btn"
-                            onClick={() => updateQuantity(index, 1)}
+                          <button className="qty-btn" onClick={() => updateQuantity(index, 1)}
                             disabled={stock <= 0}
                             style={{
-                              width: '28px',
-                              height: '28px',
-                              borderRadius: '50%',
-                              border: '1px solid #ddd',
+                              width: '28px', height: '28px', borderRadius: '50%', border: '1px solid #ddd',
                               background: stock <= 0 ? '#f5f5f5' : '#fff',
                               cursor: stock <= 0 ? 'not-allowed' : 'pointer'
-                            }}
-                          >+</button>
+                            }}>
+                            +
+                          </button>
 
-                          <button
-                            onClick={() => updateQuantity(index, -(item.quantity || 1))}
-                            style={{ background: 'none', border: 'none', color: '#bbb', cursor: 'pointer', fontSize: '13px', marginLeft: '10px' }}
-                          >刪除</button>
+                          <button onClick={() => updateQuantity(index, -(item.quantity || 1))}
+                            style={{ background: 'none', border: 'none', color: '#bbb', cursor: 'pointer', fontSize: '13px', marginLeft: '10px' }}>
+                            刪除
+                          </button>
                         </div>
                       </div>
                     </div>
@@ -132,41 +134,23 @@ function CartPage({ cartItems, onClear, updateQuantity, stock }) {
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>
                   <div className="form-group">
                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: '#666' }}>收件人姓名</label>
-                    <input
-                      type="text"
-                      name="name"
-                      className="modern-input"
-                      placeholder="請輸入真實姓名"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      required
-                    />
+                    <input type="text" name="name" className="modern-input"
+                      placeholder="請輸入真實姓名" value={formData.name}
+                      onChange={handleInputChange} required />
                   </div>
                   <div className="form-group">
                     <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: '#666' }}>聯絡電話</label>
-                    <input
-                      type="tel"
-                      name="phone"
-                      className="modern-input"
-                      placeholder="0912345678"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      required
-                    />
+                    <input type="tel" name="phone" className="modern-input"
+                      placeholder="0912345678" value={formData.phone}
+                      onChange={handleInputChange} required />
                   </div>
                 </div>
 
                 <div className="form-group" style={{ marginBottom: '30px' }}>
                   <label style={{ display: 'block', marginBottom: '8px', fontSize: '14px', color: '#666' }}>外送地址</label>
-                  <input
-                    type="text"
-                    name="address"
-                    className="modern-input"
-                    placeholder="請輸入包含縣市的完整地址"
-                    value={formData.address}
-                    onChange={handleInputChange}
-                    required
-                  />
+                  <input type="text" name="address" className="modern-input"
+                    placeholder="請輸入包含縣市的完整地址" value={formData.address}
+                    onChange={handleInputChange} required />
                 </div>
 
                 <div className="cart-summary-box" style={{ borderTop: '2px dashed #ffcccc', paddingTop: '20px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>

@@ -1,7 +1,128 @@
 import React from 'react';
 import CakeCard from './CakeCard';
 
-function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handleAddToCart, stock }) {
+// ===== Loading 骨架屏元件 =====
+function SkeletonCard() {
+  return (
+    <div style={{
+      padding: '20px',
+      background: '#fff',
+      borderRadius: '15px',
+      margin: '15px',
+      width: '220px',
+      boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
+    }}>
+      {/* 圖片骨架 */}
+      <div style={{
+        width: '100%', height: '160px', borderRadius: '12px',
+        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+        backgroundSize: '200% 100%',
+        animation: 'shimmer 1.5s infinite',
+      }} />
+      {/* 標題骨架 */}
+      <div style={{
+        margin: '15px auto 8px', height: '16px', width: '70%', borderRadius: '8px',
+        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+        backgroundSize: '200% 100%',
+        animation: 'shimmer 1.5s infinite',
+      }} />
+      {/* 價格骨架 */}
+      <div style={{
+        margin: '8px auto', height: '14px', width: '40%', borderRadius: '8px',
+        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+        backgroundSize: '200% 100%',
+        animation: 'shimmer 1.5s infinite',
+      }} />
+      {/* 按鈕骨架 */}
+      <div style={{
+        marginTop: '12px', height: '38px', borderRadius: '5px',
+        background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
+        backgroundSize: '200% 100%',
+        animation: 'shimmer 1.5s infinite',
+      }} />
+    </div>
+  );
+}
+
+function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handleAddToCart, stock, isLoading, error, searchTerm }) {
+
+  // ===== 決定商品區塊要顯示什麼 =====
+  const renderCakeSection = () => {
+
+    // 1. Loading 狀態：顯示骨架屏
+    if (isLoading) {
+      return (
+        <>
+          <style>{`
+            @keyframes shimmer {
+              0% { background-position: 200% 0; }
+              100% { background-position: -200% 0; }
+            }
+          `}</style>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
+            {[...Array(6)].map((_, i) => <SkeletonCard key={i} />)}
+          </div>
+        </>
+      );
+    }
+
+    // 2. Error 狀態：顯示錯誤訊息
+    if (error) {
+      return (
+        <div style={{
+          textAlign: 'center', padding: '60px 20px', margin: '20px auto', maxWidth: '400px',
+          background: '#fff2f0', borderRadius: '16px', border: '1px solid #ffccc7'
+        }}>
+          <div style={{ fontSize: '48px', marginBottom: '16px' }}>⚠️</div>
+          <p style={{ fontSize: '16px', color: '#ff4d4f', fontWeight: 'bold', marginBottom: '8px' }}>
+            商品載入失敗
+          </p>
+          <p style={{ fontSize: '14px', color: '#999', marginBottom: '20px' }}>{error}</p>
+          <button
+            onClick={() => window.location.reload()}
+            style={{
+              padding: '10px 28px', borderRadius: '20px', border: 'none',
+              background: '#ff4d4f', color: '#fff', cursor: 'pointer', fontSize: '14px'
+            }}
+          >
+            重新載入
+          </button>
+        </div>
+      );
+    }
+
+    // 3. Empty State：搜尋無結果
+    if (cakeData.length === 0) {
+      return (
+        <div style={{
+          textAlign: 'center', padding: '60px 20px', margin: '20px auto', maxWidth: '400px',
+        }}>
+          <div style={{ fontSize: '56px', marginBottom: '16px' }}>🔍</div>
+          <p style={{ fontSize: '18px', color: '#555', fontWeight: 'bold', marginBottom: '8px' }}>
+            找不到「{searchTerm}」相關的蛋糕
+          </p>
+          <p style={{ fontSize: '14px', color: '#aaa' }}>
+            試試其他關鍵字，或瀏覽全部商品吧！
+          </p>
+        </div>
+      );
+    }
+
+    // 4. 正常顯示商品列表
+    return (
+      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
+        {cakeData.map((cake) => (
+          <CakeCard
+            key={cake.name}
+            cake={cake}
+            onAddToCart={handleAddToCart}
+            stock={stock}
+          />
+        ))}
+      </div>
+    );
+  };
+
   return (
     <>
       {/* 1. Banner 輪播區塊 */}
@@ -38,16 +159,7 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
 
       {/* 3. 商品列表區塊 */}
       <div className="text">所有商品</div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
-        {cakeData.map((cake) => (
-          <CakeCard
-            key={cake.name}
-            cake={cake}
-            onAddToCart={handleAddToCart}
-            stock={stock}
-          />
-        ))}
-      </div>
+      {renderCakeSection()}
     </>
   );
 }

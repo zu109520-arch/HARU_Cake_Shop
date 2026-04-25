@@ -1,16 +1,14 @@
 import React, { useState } from 'react';
-
-function LoginPage({ onLogin, onBack }) {
+function LoginPage({ onLogin, onBack, setToast }) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e) => {
-    e.preventDefault(); // 阻止網頁重新整理
+    e.preventDefault();
     if (email && password) {
-      // 這裡傳回給 App.jsx，拿 Email 前綴當名字顯示
-      onLogin(email.split('@')[0]); 
+      onLogin(email.split('@')[0]);  // ← 這行不能拿掉
     } else {
-      alert("請輸入帳號密碼");
+      setToast("請輸入帳號密碼")    // ← alert 改成這個
     }
   };
 
