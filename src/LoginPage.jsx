@@ -21,7 +21,7 @@ function LoginPage({ onLogin, onBack, setToast }) {
         <div className="login-header">
           <div className="login-logo">🍰</div>
           <h2>會員登入</h2>
-          <p>歡迎回到 HARU 蛋糕店</p>
+          <p>歡迎來到 HARU 蛋糕店</p>
         </div>
         
         <form onSubmit={handleSubmit} className="login-form">
