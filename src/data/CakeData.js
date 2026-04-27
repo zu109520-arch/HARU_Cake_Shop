@@ -3,7 +3,7 @@
  
 const CakeData = [
   { 
-    name: "草莓戚風蛋糕", 
+    name: "草莓慕斯蛋糕", 
     price: 500, 
     image: "strawberry-cake.jpg", 
     options: [
@@ -21,7 +21,7 @@ const CakeData = [
     ] 
   },
   { 
-    name: "草莓檸檬威風蛋糕", 
+    name: "草莓戚風蛋糕", 
     price: 580, 
     image: "strawberry-lemon-cake.jpg", 
     options: [
