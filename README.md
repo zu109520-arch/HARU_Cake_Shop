@@ -1,8 +1,8 @@
-# HARU 蛋糕店 | Cake Shop
+# HARU 蛋糕店 
 
 一個以 React.js 建構的電商前端原型專案，模擬真實蛋糕店的完整購物流程。
 
-🔗 **Live Demo：** [haru-cake-shop.vercel.app](https://haru-cake-shop.vercel.app)
+**Live Demo：** [haru-cake-shop.vercel.app](https://haru-cake-shop.vercel.app)
 
 ---
 
@@ -79,10 +79,3 @@ npm install
 npm run dev
 ```
 
----
-
-## 作者
-
-**羅子晴** — 前端網頁工程師  
-📧 zu109520@gmail.com  
-🐙 [github.com/zu109520-arch](https://github.com/zu109520-arch)
