@@ -6,22 +6,20 @@ function LoginPage({ onLogin, onBack, setToast }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      onLogin(email.split('@')[0]);  // ← 這行不能拿掉
+      onLogin(email.split('@')[0]);  
     } else {
-      setToast("請輸入帳號密碼")    // ← alert 改成這個
+      setToast("請輸入帳號密碼")    
     }
   };
 
   return (
     <div className="login-page-wrapper">
       <div className="login-card">
-        {/* 返回按鈕移到卡片內左上角，更精緻 */}
         <button className="btn-back-link" onClick={onBack}>← 返回商店</button>
         
         <div className="login-header">
-          <div className="login-logo">🍰</div>
           <h2>會員登入</h2>
-          <p>歡迎回到 HARU 蛋糕店</p>
+          <p>歡迎來到 HARU 蛋糕店</p>
         </div>
         
         <form onSubmit={handleSubmit} className="login-form">

@@ -1,6 +1,3 @@
-// src/data/cakeData.js
-// 把商品資料獨立出來，App.jsx 就不會那麼雜亂
- 
 const CakeData = [
   { 
     name: "草莓慕斯蛋糕", 

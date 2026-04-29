@@ -11,7 +11,6 @@ function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  // ===== 結帳驗證：用 setToast 取代 alert，提升 UX =====
   const handleCheckout = (e) => {
     e.preventDefault();
 

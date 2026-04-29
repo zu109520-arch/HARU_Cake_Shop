@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 function CakeCard({ cake, onAddToCart, stock }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
-  // 處理勾選邏輯
   const handleOptionChange = (option) => {
     setSelectedOptions(prev => {
       const exists = prev.find(o => o.label === option.label);
@@ -15,25 +14,19 @@ function CakeCard({ cake, onAddToCart, stock }) {
     });
   };
 
-  // 計算動態總價
   const optionsTotal = selectedOptions.reduce((sum, opt) => sum + opt.price, 0);
   const currentPrice = cake.price + optionsTotal;
-
-  // --- 🚀 全自動邏輯區：完全不依賴 cake.status ---
-  
-  // 1. 只要總名額歸零，就判定為售完
   const isSoldOut = stock <= 0;
 
-  // 2. 根據 stock 自動決定要顯示什麼字與顏色
   let displayStatus = "販售中"; 
-  let badgeColor = '#52c41a'; // 預設綠色
+  let badgeColor = '#52c41a'; 
 
   if (isSoldOut) {
     displayStatus = '已售完';
-    badgeColor = '#999'; // 灰色
+    badgeColor = '#999'; 
   } else if (stock <= 3) {
     displayStatus = '即將售完';
-    badgeColor = '#ff4d4f'; // 紅色
+    badgeColor = '#ff4d4f'; 
   }
 
   return (
@@ -55,7 +48,6 @@ function CakeCard({ cake, onAddToCart, stock }) {
       <div className="cake-image-container" style={{ position: 'relative' }}>
         <img src={`/image/${cake.image}`} alt={cake.name} style={{ width: '100%', borderRadius: '12px', objectFit: 'cover', height: '160px' }} />
         
-        {/* 動態狀態標籤：現在完全根據計算出來的 displayStatus 顯示 */}
         <span style={{
           position: 'absolute', top: '10px', right: '10px', padding: '5px 10px', borderRadius: '20px', fontSize: '11px', color: '#fff',
           backgroundColor: badgeColor,

@@ -1,7 +1,6 @@
 import React from 'react';
 import CakeCard from './CakeCard';
 
-// ===== Loading 骨架屏元件 =====
 function SkeletonCard() {
   return (
     <div style={{
@@ -12,28 +11,28 @@ function SkeletonCard() {
       width: '220px',
       boxShadow: '0 4px 15px rgba(0,0,0,0.05)',
     }}>
-      {/* 圖片骨架 */}
+
       <div style={{
         width: '100%', height: '160px', borderRadius: '12px',
         background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
         backgroundSize: '200% 100%',
         animation: 'shimmer 1.5s infinite',
       }} />
-      {/* 標題骨架 */}
+
       <div style={{
         margin: '15px auto 8px', height: '16px', width: '70%', borderRadius: '8px',
         background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
         backgroundSize: '200% 100%',
         animation: 'shimmer 1.5s infinite',
       }} />
-      {/* 價格骨架 */}
+
       <div style={{
         margin: '8px auto', height: '14px', width: '40%', borderRadius: '8px',
         background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
         backgroundSize: '200% 100%',
         animation: 'shimmer 1.5s infinite',
       }} />
-      {/* 按鈕骨架 */}
+
       <div style={{
         marginTop: '12px', height: '38px', borderRadius: '5px',
         background: 'linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%)',
@@ -46,10 +45,8 @@ function SkeletonCard() {
 
 function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handleAddToCart, stock, isLoading, error, searchTerm }) {
 
-  // ===== 決定商品區塊要顯示什麼 =====
   const renderCakeSection = () => {
 
-    // 1. Loading 狀態：顯示骨架屏
     if (isLoading) {
       return (
         <>
@@ -66,7 +63,6 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       );
     }
 
-    // 2. Error 狀態：顯示錯誤訊息
     if (error) {
       return (
         <div style={{
@@ -91,7 +87,6 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       );
     }
 
-    // 3. Empty State：搜尋無結果
     if (cakeData.length === 0) {
       return (
         <div style={{
@@ -108,7 +103,6 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       );
     }
 
-    // 4. 正常顯示商品列表
     return (
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
         {cakeData.map((cake) => (
@@ -125,7 +119,6 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
 
   return (
     <>
-      {/* 1. Banner 輪播區塊 */}
       <div className="main-banner">
         <div className="banner-wrapper">
           {bannerImages.map((img, index) => (
@@ -152,12 +145,10 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
         </div>
       </div>
 
-      {/* 2. 庫存公告 */}
       <div className="stock-alert">
         🔥 全店熱銷中！今日剩餘名額：<span>{stock}</span> 組
       </div>
 
-      {/* 3. 商品列表區塊 */}
       <div className="text">所有商品</div>
       {renderCakeSection()}
     </>

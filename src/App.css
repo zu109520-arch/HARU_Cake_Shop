@@ -1,4 +1,3 @@
-/* --- 1. 基礎設定 --- */
 body {
     background-color: #ffffff;
     margin: 0;
@@ -8,7 +7,6 @@ body {
     color: #4a4a4a;
 }
 
-/* 頂部導覽列 */
 .welcome {
     display: flex;
     justify-content: space-between;
@@ -24,7 +22,6 @@ body {
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
 
-/* ✅ .left → .nav-left */
 .nav-left {
     font-size: 22px;
     font-weight: normal;
@@ -32,7 +29,6 @@ body {
     letter-spacing: 2px;
 }
 
-/* ✅ .right → .nav-right */
 .nav-right {
     display: flex;
     align-items: center;
@@ -66,7 +62,6 @@ body {
     color: #ffcccc;
 }
 
-/* ✅ 搜尋 bar：從 inline style 移到 CSS */
 .search-bar {
     display: flex;
     align-items: center;
@@ -85,7 +80,6 @@ body {
     margin-left: 8px;
 }
 
-/* --- 2. 分類與廣告區 --- */
 ul {
     list-style-type: none;
     padding: 0;
@@ -151,7 +145,6 @@ ul li a:hover { color: #ffcccc; }
 
 .dot.active { background-color: #fff; transform: scale(1.3); }
 
-/* --- 3. 商品區標題與促銷 --- */
 .text {
     text-align: center;
     margin: 60px 0 20px 0;
@@ -172,9 +165,6 @@ ul li a:hover { color: #ffcccc; }
     box-shadow: 0 4px 10px rgba(255, 77, 79, 0.1);
 }
 
-/* --- 4. 商品列表 --- */
-
-/* ✅ 合併所有 #product-list 為一個 .product-list */
 .product-list {
     width: 95%;
     max-width: 750px;
@@ -187,7 +177,6 @@ ul li a:hover { color: #ffcccc; }
     animation: fadeInUp 1s ease-out forwards;
 }
 
-/* 蛋糕卡片 hover 效果 */
 .cake-card:hover {
     transform: translateY(-5px);
     transition: 0.3s;
@@ -224,7 +213,6 @@ ul li a:hover { color: #ffcccc; }
     border-color: #ff4d4f !important;
 }
 
-/* 客製化選項氣泡 */
 .options-bubble {
     position: absolute;
     bottom: 80%;
@@ -249,13 +237,11 @@ ul li a:hover { color: #ffcccc; }
     transform: translateX(-50%) translateY(-10px);
 }
 
-/* --- 5. 動態進場效果 --- */
 @keyframes fadeInUp {
     from { opacity: 0; transform: translateY(30px); }
     to   { opacity: 1; transform: translateY(0); }
 }
 
-/* --- 6. 彈窗 --- */
 .promo-modal {
     position: fixed;
     top: 0; left: 0;
@@ -293,7 +279,6 @@ ul li a:hover { color: #ffcccc; }
 
 .modal-content button:hover { background-color: #ff7875; }
 
-/* --- 7. 庫存公告 --- */
 .stock-alert {
     background-color: #fff1f0;
     border: 1px solid #ffa39e;
@@ -304,7 +289,6 @@ ul li a:hover { color: #ffcccc; }
     font-weight: bold;
 }
 
-/* --- 8. 頁尾 --- */
 .footer {
     background-color: #fafafa;
     padding: 80px 0 0 0;
@@ -363,7 +347,6 @@ ul li a:hover { color: #ffcccc; }
     text-transform: uppercase;
 }
 
-/* --- 9. 導覽列 Icon --- */
 .nav-item-group {
     display: flex;
     align-items: center;
@@ -386,7 +369,6 @@ ul li a:hover { color: #ffcccc; }
 
 .nav-item-group:hover .nav-text { color: #ffcccc; }
 
-/* --- 10. 登入頁 --- */
 .login-page-wrapper {
     display: flex;
     justify-content: center;
@@ -472,7 +454,6 @@ ul li a:hover { color: #ffcccc; }
 .login-footer-text { margin-top: 25px; font-size: 13px; color: #999; text-align: center; }
 .login-footer-text a { color: #ff4d4f; text-decoration: none; font-weight: 500; }
 
-/* --- 11. 購物車頁 --- */
 .cart-page-container {
     display: flex;
     justify-content: center;
@@ -589,7 +570,6 @@ ul li a:hover { color: #ffcccc; }
 .btn-clear-all:hover { background: #fff1f0; }
 .qty-btn:hover { background: #f0f0f0 !important; }
 
-/* --- 12. RWD --- */
 @media (max-width: 768px) {
     .nav-text { display: none; }
     .nav-right { gap: 15px; }

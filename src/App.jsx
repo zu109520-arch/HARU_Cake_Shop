@@ -10,18 +10,14 @@ import cakeData from './data/CakeData'
 
 const bannerImages = ["/image/strawberry-cake.jpg", "/image/chocolate-cake.jpg", "/image/strawberry-lemon-cake.jpg"];
 
-// ===== 模擬 API fetch =====
 const fetchCakes = () => {
   return new Promise((resolve, reject) => {
     setTimeout(() => {
-      // 測試 error 畫面時，將下方註解打開
-      // return reject(new Error('伺服器連線失敗'));
       resolve(cakeData);
     }, 1000);
   });
 };
 
-// ===== Toast 通知元件：取代 alert / confirm =====
 function Toast({ message, onClose }) {
   useEffect(() => {
     if (!message) return
@@ -50,14 +46,11 @@ function Navbar({ user, cartTotal, searchTerm, setSearchTerm, handleClearCart })
 
   return (
     <div className="welcome">
-      {/* ✅ .left → .nav-left */}
       <div className="nav-left" onClick={() => { navigate('/'); setSearchTerm(''); }} style={{ cursor: 'pointer' }}>
         HARU蛋糕店
       </div>
 
-      {/* ✅ .right → .nav-right */}
-      <div className="nav-right">
-        {/* ✅ 搜尋 bar：移除 inline style，改用 CSS class */}
+        <div className="nav-right">
         <div className="search-bar">
           <img src="/image/search.svg" className="nav-icon" alt="搜尋" />
           <input
@@ -90,20 +83,16 @@ function Navbar({ user, cartTotal, searchTerm, setSearchTerm, handleClearCart })
 function AppContent() {
   const navigate = useNavigate();
 
-  // ===== 購物車邏輯由 useCart hook 統一管理，降低耦合 =====
   const { cartItems, stock, addToCart, updateQuantity, clearCart } = useCart()
 
   const [user, setUser] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
   const [searchTerm, setSearchTerm] = useState('');
   const [toast, setToast] = useState(null);
-
-  // ===== API 相關狀態 =====
   const [cakes, setCakes] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ===== 用 async/await 重構非同步流程，統一 loading / error 控制 =====
   useEffect(() => {
     const loadCakes = async () => {
       try {
@@ -127,24 +116,20 @@ function AppContent() {
     return () => clearInterval(timer);
   }, []);
 
-  // 防呆：避免 cake.name 為 undefined 時 crash
   const filteredCakes = cakes.filter(cake =>
     cake.name?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // ===== 加入購物車：用 state 管理 UI feedback，不使用 alert =====
   const handleAddToCart = (cakeObject, finalPrice, selectedOptions = []) => {
     const success = addToCart(cakeObject, finalPrice, selectedOptions)
     if (!success) setToast("抱歉，今日 10 組名額已滿！")
   };
 
-  // ===== 更新數量：用 state 管理 UI feedback，不使用 alert =====
   const handleUpdateQuantity = (index, delta) => {
     const result = updateQuantity(index, delta)
     if (result === "sold_out") setToast("抱歉，今日名額已達上限 10 組！")
   }
 
-  // ===== 清空購物車：用 state 管理 feedback，不使用 confirm =====
   const handleClearCart = () => {
     const success = clearCart()
     if (success) setToast("購物車已清空")
@@ -154,7 +139,6 @@ function AppContent() {
 
   return (
     <div className="app-container">
-      {/* Toast 通知：取代所有 alert / confirm */}
       <Toast message={toast} onClose={() => setToast(null)} />
 
       <Navbar

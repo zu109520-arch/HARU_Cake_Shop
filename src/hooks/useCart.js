@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 
-// ===== 購物車 Custom Hook：將購物車邏輯從 App 抽離，降低耦合 =====
 export default function useCart(initialStock = 10) {
 
   const [cartItems, setCartItems] = useState(() => {
@@ -13,13 +12,11 @@ export default function useCart(initialStock = 10) {
     return saved ? parseInt(saved) : initialStock
   })
 
-  // 同步 localStorage
   useEffect(() => {
     localStorage.setItem("haru-cart", JSON.stringify(cartItems))
     localStorage.setItem("haru-stock", stock.toString())
   }, [cartItems, stock])
 
-  // 加入購物車，回傳 true/false 讓呼叫方決定是否顯示提示
   const addToCart = (cakeObject, finalPrice, selectedOptions = []) => {
     if (stock <= 0) return false
 
@@ -45,7 +42,6 @@ export default function useCart(initialStock = 10) {
     return true
   }
 
-  // 更新數量（+1 或 -1），回傳 "sold_out" / "deleted" / "updated" 給呼叫方
   const updateQuantity = (index, delta) => {
     const item = cartItems[index]
     if (!item) return
@@ -66,7 +62,6 @@ export default function useCart(initialStock = 10) {
     return "updated"
   }
 
-  // 清空購物車，回傳是否有東西可清
   const clearCart = () => {
     if (cartItems.length === 0) return false
     const total = cartItems.reduce((sum, item) => sum + item.quantity, 0)
