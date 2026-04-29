@@ -27,7 +27,7 @@ function LoginPage({ onLogin, onBack, setToast }) {
             <label>電子信箱</label>
             <input 
               type="email" 
-              placeholder="example@mail.com"
+              placeholder="example@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required 
