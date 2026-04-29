@@ -4,6 +4,7 @@
 
 **Live Demo：** [haru-cake-shop.vercel.app](https://haru-cake-shop.vercel.app)
 
+[![HARU Cake Shop](https://github.com/user-attachments/assets/2a58c1ca-9688-437e-a783-762b58c05250)](https://haru-cake-shop.vercel.app)
 ---
 
 ## 專案特色
