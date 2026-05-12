@@ -36,7 +36,7 @@ function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
       return
     }
 
-    setToast(`🎉 訂單成立！感謝 ${formData.name} 的訂購，總金額 $${total}`)
+    setToast(` 訂單成立！感謝 ${formData.name} 的訂購，總金額 $${total}`)
     onClear();
   };
 
@@ -51,7 +51,7 @@ function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
           <h2 style={{ margin: 0, fontSize: '24px', color: '#333' }}>您的購物清單</h2>
           {cartItems.length > 0 && (
             <button onClick={onClear} className="btn-clear-all">
-              🗑️ 清空購物車
+               清空購物車
             </button>
           )}
         </div>
@@ -68,7 +68,7 @@ function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
             <div className="cart-items-list">
               {cartItems.map((item, index) => {
                 const optionsKey = item.selectedOptions ? item.selectedOptions.map(o => o.label).join('-') : '';
-                const uniqueKey = `${item.name}-${optionsKey || index}`;
+                const uniqueKey = `${item.id}-${optionsKey || "default"}`
                 return (
                   <div key={uniqueKey} className="cart-item-modern" style={{
                     display: 'flex', alignItems: 'center',
@@ -127,7 +127,7 @@ function CartPage({ cartItems, onClear, updateQuantity, stock, setToast }) {
             </div>
 
             <div className="shipping-form" style={{ marginTop: '40px', background: '#fff8f8', padding: '30px', borderRadius: '15px' }}>
-              <h3 className="form-title" style={{ marginTop: 0, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>🍰 配送資訊</h3>
+              <h3 className="form-title" style={{ marginTop: 0, marginBottom: '20px', display: 'flex', alignItems: 'center', gap: '10px' }}>配送資訊</h3>
               <form onSubmit={handleCheckout} className="checkout-form">
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '20px', marginBottom: '20px' }}>

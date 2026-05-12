@@ -27,7 +27,7 @@ export default function useCart(initialStock = 10) {
     setCartItems(prev => {
       const idx = prev.findIndex(item => {
         const itemOpt = item.selectedOptions?.map(o => o.label).sort().join(",") || ""
-        return item.name === cakeObject.name && itemOpt === optionsStr
+        return item.id === cakeObject.id && itemOpt === optionsStr
       })
 
       if (idx > -1) {
