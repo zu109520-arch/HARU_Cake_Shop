@@ -20,6 +20,28 @@
 
 ---
 
+## 技術亮點
+
+**Custom Hook 封裝購物車邏輯**
+- 將 `cartItems`、`stock` 狀態與 `addToCart`、`updateQuantity`、`clearCart` 等方法抽出至 `useCart`
+- App.jsx 只負責 UI，邏輯與畫面分離，提升可測試性與可維護性
+
+**非同步資料三態處理**
+- Loading：使用 Skeleton Loading 動畫撐版面，避免畫面跳動
+- Error：失敗時顯示錯誤訊息與「重新載入」按鈕
+- Empty：搜尋無結果時顯示提示，引導使用者調整關鍵字
+
+**Toast 通知系統**
+- 用 React state 控制顯示，自動 2.5 秒消失，取代會中斷使用者操作的原生 `alert`
+- 在加入購物車、庫存不足、表單驗證失敗等情境統一回饋使用者
+
+**表單驗證**
+- 姓名：`/^[a-zA-Z\u4e00-\u9fa5]{2,}$/` 至少兩個字、不含數字
+- 電話：`/^09\d{8}$/` 台灣手機格式
+- 地址：包含「市」或「縣」關鍵字
+
+---
+
 ## 技術架構
 
 | 類別 | 技術 |
@@ -80,4 +102,3 @@ cd HARU_Cake_Shop
 npm install
 npm run dev
 ```
-
