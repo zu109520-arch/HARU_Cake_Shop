@@ -54,7 +54,7 @@
 
 | 類別 | 技術 |
 |------|------|
-| 框架 | React.js |
+| 框架 | React |
 | 路由 | React Router v6 |
 | 狀態管理 | React Hooks / Custom Hook |
 | 樣式系統 | CSS3 / Skeleton Loading | 
