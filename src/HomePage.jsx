@@ -107,7 +107,7 @@ function HomePage({ bannerImages, currentSlide, setCurrentSlide, cakeData, handl
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', padding: '20px' }}>
         {cakeData.map((cake) => (
           <CakeCard
-            key={cake.name}
+            key={cake.id}
             cake={cake}
             onAddToCart={handleAddToCart}
             stock={stock}
