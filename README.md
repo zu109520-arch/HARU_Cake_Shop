@@ -10,7 +10,7 @@
 
 ## 專案特色
 
-- 模擬非同步 API 資料請求，實作 loading skeleton、error、empty state 三種狀態處理
+- 模擬商品 API 載入流程，實作 loading skeleton、error、empty state 三種狀態處理
 - 以 Custom Hook（`useCart`）封裝購物車邏輯，降低元件耦合、提升可維護性
 - 用 React state 管理 UI 通知（Toast），取代瀏覽器原生 `alert` / `confirm`
 - 整合 localStorage 實現資料持久化，重新整理頁面後購物狀態不遺失
@@ -42,13 +42,23 @@
 
 ---
 
+## 開發挑戰
+
+- 購物車數量與商品庫存需保持同步，避免超賣與狀態不一致
+- 將購物邏輯抽離至 useCart 時，需設計清楚資料流，避免元件間耦合
+- 模擬商品 API 載入流程時，完整處理 loading、error、empty 三種非同步狀態，提高使用體驗穩定性
+
+---
+
 ## 技術架構
 
 | 類別 | 技術 |
 |------|------|
 | 框架 | React.js 18 |
 | 路由 | React Router v6 |
-| 狀態管理 | React Hooks（useState、useEffect、Custom Hook） |
+| 狀態管理 | React Hooks / Custom Hook |
+| 樣式系統 | CSS3 / Skeleton Loading | 
+| UI 回饋 | Custom Toast Notification |
 | 建置工具 | Vite |
 | 部署 | Vercel |
 | 資料儲存 | localStorage |
