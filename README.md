@@ -128,3 +128,10 @@ npm run dev
 \`\`\`bash
 npx vitest
 \`\`\`
+
+---
+
+## 未來規劃
+
+- 導入 React Testing Library，補齊元件層級的測試
+- 優化庫存與購物車的即時同步機制
