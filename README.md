@@ -17,6 +17,7 @@
 - 動態庫存機制：庫存 ≤ 3 自動顯示「即將售完」警示，歸零時禁止加購
 - 商品搜尋即時過濾，含防呆處理避免 undefined crash
 - 表單驗證使用正規表達式（Regex）檢查姓名、電話、地址格式
+- 使用 Vitest 為核心邏輯撰寫 23 個單元測試，涵蓋表單驗證、金額計算、庫存狀態判斷等函式
 
 ---
 
@@ -40,6 +41,11 @@
 - 電話：`/^09\d{8}$/` 台灣手機格式驗證
 - 地址：基礎格式檢查（需包含「市」或「縣」關鍵字）
 
+**單元測試（Vitest）**
+- 將表單驗證、購物車金額計算、庫存判斷等核心邏輯抽離為獨立純函式，提升可測試性
+- 撰寫 23 個單元測試，涵蓋正常情境與邊界情況（空值、格式錯誤、缺少欄位等）
+- 測試涵蓋 8 個函式：email／姓名／電話／地址驗證、金額計算、庫存狀態判斷
+
 ---
 
 ## 開發挑戰
@@ -62,6 +68,7 @@
 | 建置工具 | Vite |
 | 部署 | Vercel |
 | 資料儲存 | localStorage |
+| 測試 | Vitest（單元測試） |
 
 ---
 
@@ -88,27 +95,36 @@
 
 ## 專案結構
 
-```
+\`\`\`
 src/
 ├── hooks/
 │   └── useCart.js        # 購物車 Custom Hook
 ├── data/
 │   └── CakeData.js       # 商品資料（模擬 API 來源）
+├── utils/
+│   ├── utils.js           # 核心邏輯純函式（驗證、計算）
+│   └── utils.test.js      # 單元測試（Vitest）
 ├── App.jsx               # 主元件、路由、Toast 通知
 ├── HomePage.jsx          # 首頁（Banner、商品列表）
 ├── CakeCard.jsx          # 商品卡片元件
 ├── CartPage.jsx          # 購物車頁面
 ├── LoginPage.jsx         # 登入頁面
 └── App.css               # 全域樣式
-```
+\`\`\`
 
 ---
 
 ## 本機執行
 
-```bash
+\`\`\`bash
 git clone https://github.com/zu109520-arch/HARU_Cake_Shop.git
 cd HARU_Cake_Shop
 npm install
 npm run dev
-```
+\`\`\`
+
+## 執行測試
+
+\`\`\`bash
+npx vitest
+\`\`\`
