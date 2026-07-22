@@ -6,50 +6,59 @@ function LoginPage({ onLogin, onBack, setToast }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email && password) {
-      onLogin(email.split('@')[0]);  
+      onLogin(email.split('@')[0]);
     } else {
-      setToast("請輸入帳號密碼")    
+      setToast('請輸入帳號密碼');
     }
   };
 
   return (
     <div className="login-page-wrapper">
       <div className="login-card">
-        <button className="btn-back-link" onClick={onBack}>← 返回商店</button>
-        
+        <button className="btn-back-link" onClick={onBack}>
+          ← 返回商店
+        </button>
+
         <div className="login-header">
           <h2>會員登入</h2>
           <p>歡迎來到 HARU 蛋糕店</p>
         </div>
-        
+
         <form onSubmit={handleSubmit} className="login-form">
           <div className="input-group">
             <label>電子信箱</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               placeholder="example@gmail.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required 
+              required
             />
           </div>
-          
+
           <div className="input-group">
             <label>密碼</label>
-            <input 
-              type="password" 
+            <input
+              type="password"
               placeholder="請輸入密碼"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required 
+              required
             />
           </div>
-          
-          <button type="submit" className="btn-login-submit">立即登入</button>
+
+          <button type="submit" className="btn-login-submit">
+            立即登入
+          </button>
         </form>
-        
+
         <div className="login-footer-text">
-          <span>還不是會員？ <a href="#" onClick={(e) => e.preventDefault()}>立即註冊</a></span>
+          <span>
+            還不是會員？{' '}
+            <a href="#" onClick={(e) => e.preventDefault()}>
+              立即註冊
+            </a>
+          </span>
         </div>
       </div>
     </div>

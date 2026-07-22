@@ -8,7 +8,10 @@ export function isValidEmail(email) {
 }
 
 export function calculateTotal(cartItems) {
-  const total = cartItems.reduce((sum, item) => sum + (item.price * (item.quantity || 1)), 0);
+  const total = cartItems.reduce(
+    (sum, item) => sum + item.price * (item.quantity || 1),
+    0,
+  );
   return total;
 }
 
@@ -17,15 +20,16 @@ export function isStockAvailable(stock) {
 }
 
 export function getStockStatus(stock) {
-   if (stock <= 0) { return '已售完'; }
-   else if (stock <= 3) {
-     return '即將售完';
-   }
-   return '販售中';
+  if (stock <= 0) {
+    return '已售完';
+  } else if (stock <= 3) {
+    return '即將售完';
+  }
+  return '販售中';
 }
- 
+
 export function isValidPhone(phone) {
-  const regex = /^09\d{8}$/
+  const regex = /^09\d{8}$/;
   return regex.test(phone);
 }
 

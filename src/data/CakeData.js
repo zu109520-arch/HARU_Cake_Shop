@@ -1,34 +1,34 @@
 const CakeData = [
-  { 
+  {
     id: 1,
-    name: "草莓慕斯蛋糕", 
-    price: 500, 
-    image: "strawberry-cake.jpg", 
+    name: '草莓慕斯蛋糕',
+    price: 500,
+    image: 'strawberry-cake.jpg',
     options: [
-      { label: "加蠟燭", price: 10 }, 
-      { label: "加鮮奶油", price: 30 }
-    ] 
+      { label: '加蠟燭', price: 10 },
+      { label: '加鮮奶油', price: 30 },
+    ],
   },
-  { 
+  {
     id: 2,
-    name: "巧克力蛋糕", 
-    price: 600, 
-    image: "chocolate-cake.jpg", 
+    name: '巧克力蛋糕',
+    price: 600,
+    image: 'chocolate-cake.jpg',
     options: [
-      { label: "加蠟燭", price: 10 }, 
-      { label: "加鮮奶油", price: 30 }
-    ] 
+      { label: '加蠟燭', price: 10 },
+      { label: '加鮮奶油', price: 30 },
+    ],
   },
-  { 
+  {
     id: 3,
-    name: "草莓戚風蛋糕", 
-    price: 580, 
-    image: "strawberry-lemon-cake.jpg", 
+    name: '草莓戚風蛋糕',
+    price: 580,
+    image: 'strawberry-lemon-cake.jpg',
     options: [
-      { label: "加蠟燭", price: 10 }, 
-      { label: "加鮮奶油", price: 30 }
-    ] 
-  }
+      { label: '加蠟燭', price: 10 },
+      { label: '加鮮奶油', price: 30 },
+    ],
+  },
 ];
- 
+
 export default CakeData;

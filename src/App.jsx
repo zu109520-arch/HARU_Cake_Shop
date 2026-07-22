@@ -1,14 +1,23 @@
-import { useState, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router-dom'
-import './App.css'
+import { useState, useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from 'react-router-dom';
+import './App.css';
 
-import HomePage from './HomePage'
-import LoginPage from './LoginPage'
-import CartPage from './CartPage'
-import useCart from './hooks/useCart'
-import cakeData from './data/CakeData'
+import HomePage from './HomePage';
+import LoginPage from './LoginPage';
+import CartPage from './CartPage';
+import useCart from './hooks/useCart';
+import cakeData from './data/CakeData';
 
-const bannerImages = ["/image/strawberry-cake.jpg", "/image/chocolate-cake.jpg", "/image/strawberry-lemon-cake.jpg"];
+const bannerImages = [
+  '/image/strawberry-cake.jpg',
+  '/image/chocolate-cake.jpg',
+  '/image/strawberry-lemon-cake.jpg',
+];
 
 const fetchCakes = () => {
   return new Promise((resolve, reject) => {
@@ -20,37 +29,61 @@ const fetchCakes = () => {
 
 function Toast({ message, onClose }) {
   useEffect(() => {
-    if (!message) return
-    const timer = setTimeout(onClose, 2500)
-    return () => clearTimeout(timer)
-  }, [message, onClose])
+    if (!message) return;
+    const timer = setTimeout(onClose, 2500);
+    return () => clearTimeout(timer);
+  }, [message, onClose]);
 
-  if (!message) return null
+  if (!message) return null;
 
   return (
-    <div onClick={onClose} style={{
-      position: 'fixed', top: '24px', left: '50%', transform: 'translateX(-50%)',
-      background: 'rgba(30,30,30,0.92)', color: '#fff',
-      padding: '12px 28px', borderRadius: '30px', fontSize: '15px',
-      zIndex: 9999, cursor: 'pointer', backdropFilter: 'blur(8px)',
-      boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
-      animation: 'fadeInDown 0.3s ease'
-    }}>
+    <div
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        top: '24px',
+        left: '50%',
+        transform: 'translateX(-50%)',
+        background: 'rgba(30,30,30,0.92)',
+        color: '#fff',
+        padding: '12px 28px',
+        borderRadius: '30px',
+        fontSize: '15px',
+        zIndex: 9999,
+        cursor: 'pointer',
+        backdropFilter: 'blur(8px)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.3)',
+        animation: 'fadeInDown 0.3s ease',
+      }}
+    >
       {message}
     </div>
-  )
+  );
 }
 
-function Navbar({ user, cartTotal, searchTerm, setSearchTerm, handleClearCart }) {
+function Navbar({
+  user,
+  cartTotal,
+  searchTerm,
+  setSearchTerm,
+  handleClearCart,
+}) {
   const navigate = useNavigate();
 
   return (
     <div className="welcome">
-      <div className="nav-left" onClick={() => { navigate('/'); setSearchTerm(''); }} style={{ cursor: 'pointer' }}>
+      <div
+        className="nav-left"
+        onClick={() => {
+          navigate('/');
+          setSearchTerm('');
+        }}
+        style={{ cursor: 'pointer' }}
+      >
         HARU蛋糕店
       </div>
 
-        <div className="nav-right">
+      <div className="nav-right">
         <div className="search-bar">
           <img src="/image/search.svg" className="nav-icon" alt="搜尋" />
           <input
@@ -66,15 +99,22 @@ function Navbar({ user, cartTotal, searchTerm, setSearchTerm, handleClearCart })
 
         <span className="nav-item-group" onClick={() => navigate('/login')}>
           <img src="/image/login.svg" className="nav-icon" alt="登入" />
-          <span className="nav-text">{user ? `妳好，${user}` : "會員登入"}</span>
+          <span className="nav-text">
+            {user ? `妳好，${user}` : '會員登入'}
+          </span>
         </span>
 
-        <span className="cart-info nav-item-group" onClick={() => navigate('/cart')}>
+        <span
+          className="cart-info nav-item-group"
+          onClick={() => navigate('/cart')}
+        >
           <img src="/image/cart.svg" className="nav-icon" alt="購物車" />
           <span className="nav-text">購物車</span>($<span>{cartTotal}</span>)
         </span>
 
-        <button onClick={handleClearCart} className="btn-clear">清空</button>
+        <button onClick={handleClearCart} className="btn-clear">
+          清空
+        </button>
       </div>
     </div>
   );
@@ -83,7 +123,7 @@ function Navbar({ user, cartTotal, searchTerm, setSearchTerm, handleClearCart })
 function AppContent() {
   const navigate = useNavigate();
 
-  const { cartItems, stock, addToCart, updateQuantity, clearCart } = useCart()
+  const { cartItems, stock, addToCart, updateQuantity, clearCart } = useCart();
 
   const [user, setUser] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -96,17 +136,17 @@ function AppContent() {
   useEffect(() => {
     const loadCakes = async () => {
       try {
-        setIsLoading(true)
-        setError(null)
-        const data = await fetchCakes()
-        setCakes(data)
+        setIsLoading(true);
+        setError(null);
+        const data = await fetchCakes();
+        setCakes(data);
       } catch (err) {
-        setError(err.message || "載入失敗")
+        setError(err.message || '載入失敗');
       } finally {
-        setIsLoading(false)
+        setIsLoading(false);
       }
-    }
-    loadCakes()
+    };
+    loadCakes();
   }, []);
 
   useEffect(() => {
@@ -116,26 +156,29 @@ function AppContent() {
     return () => clearInterval(timer);
   }, []);
 
-  const filteredCakes = cakes.filter(cake =>
-    cake.name?.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredCakes = cakes.filter((cake) =>
+    cake.name?.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleAddToCart = (cakeObject, finalPrice, selectedOptions = []) => {
-    const success = addToCart(cakeObject, finalPrice, selectedOptions)
-    if (!success) setToast("抱歉，今日 10 組名額已滿！")
+    const success = addToCart(cakeObject, finalPrice, selectedOptions);
+    if (!success) setToast('抱歉，今日 10 組名額已滿！');
   };
 
   const handleUpdateQuantity = (index, delta) => {
-    const result = updateQuantity(index, delta)
-    if (result === "sold_out") setToast("抱歉，今日名額已達上限 10 組！")
-  }
-
-  const handleClearCart = () => {
-    const success = clearCart()
-    if (success) setToast("購物車已清空")
+    const result = updateQuantity(index, delta);
+    if (result === 'sold_out') setToast('抱歉，今日名額已達上限 10 組！');
   };
 
-  const cartTotal = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+  const handleClearCart = () => {
+    const success = clearCart();
+    if (success) setToast('購物車已清空');
+  };
+
+  const cartTotal = cartItems.reduce(
+    (sum, item) => sum + item.price * item.quantity,
+    0,
+  );
 
   return (
     <div className="app-container">
@@ -151,36 +194,48 @@ function AppContent() {
 
       <main className="main-content">
         <Routes>
-          <Route path="/" element={
-            <HomePage
-              bannerImages={bannerImages}
-              currentSlide={currentSlide}
-              setCurrentSlide={setCurrentSlide}
-              cakeData={filteredCakes}
-              handleAddToCart={handleAddToCart}
-              stock={stock}
-              isLoading={isLoading}
-              error={error}
-              searchTerm={searchTerm}
-            />
-          } />
-          <Route path="/login" element={
-            <LoginPage
-              onLogin={(name) => { setUser(name); navigate('/'); }}
-              onBack={() => navigate('/')}
-              setToast={setToast}
-            />
-          } />
-          <Route path="/cart" element={
-            <CartPage
-              cartItems={cartItems}
-              updateQuantity={handleUpdateQuantity}
-              stock={stock}
-              onBack={() => navigate('/')}
-              onClear={handleClearCart}
-              setToast={setToast}
-            />
-          } />
+          <Route
+            path="/"
+            element={
+              <HomePage
+                bannerImages={bannerImages}
+                currentSlide={currentSlide}
+                setCurrentSlide={setCurrentSlide}
+                cakeData={filteredCakes}
+                handleAddToCart={handleAddToCart}
+                stock={stock}
+                isLoading={isLoading}
+                error={error}
+                searchTerm={searchTerm}
+              />
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <LoginPage
+                onLogin={(name) => {
+                  setUser(name);
+                  navigate('/');
+                }}
+                onBack={() => navigate('/')}
+                setToast={setToast}
+              />
+            }
+          />
+          <Route
+            path="/cart"
+            element={
+              <CartPage
+                cartItems={cartItems}
+                updateQuantity={handleUpdateQuantity}
+                stock={stock}
+                onBack={() => navigate('/')}
+                onClear={handleClearCart}
+                setToast={setToast}
+              />
+            }
+          />
         </Routes>
       </main>
 
