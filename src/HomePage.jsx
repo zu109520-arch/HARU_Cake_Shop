@@ -76,6 +76,8 @@ function HomePage({
   isLoading,
   error,
   searchTerm,
+  isFavorite,
+  onToggleFavorite,
 }) {
   const renderCakeSection = () => {
     if (isLoading) {
@@ -191,6 +193,8 @@ function HomePage({
             cake={cake}
             onAddToCart={handleAddToCart}
             stock={stock}
+            isFavorited={isFavorite(cake.id)}
+            onToggleFavorite={onToggleFavorite}
           />
         ))}
       </div>
