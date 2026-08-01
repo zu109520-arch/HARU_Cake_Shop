@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-function CakeCard({ cake, onAddToCart, stock, isFavorited, onToggleFavorite }) {
+function CakeCard({ cake, onAddToCart, stock }) {
   const [selectedOptions, setSelectedOptions] = useState([]);
 
   const handleOptionChange = (option) => {
@@ -77,25 +77,6 @@ function CakeCard({ cake, onAddToCart, stock, isFavorited, onToggleFavorite }) {
         >
           {displayStatus}
         </span>
-
-        <button
-          onClick={() => onToggleFavorite(cake.id)}
-          style={{
-            position: 'absolute',
-            top: '10px',
-            left: '10px',
-            background: 'rgba(255,255,255,0.9)',
-            border: 'none',
-            borderRadius: '50%',
-            width: '30px',
-            height: '30px',
-            cursor: 'pointer',
-            fontSize: '16px',
-            zIndex: 5,
-          }}
-        >
-          {isFavorited ? '❤️' : '🤍'}
-        </button>
 
         {!isSoldOut && cake.options && (
           <div className="options-bubble">
