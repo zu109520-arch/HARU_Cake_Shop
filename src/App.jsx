@@ -11,7 +11,6 @@ import HomePage from './HomePage';
 import LoginPage from './LoginPage';
 import CartPage from './CartPage';
 import useCart from './hooks/useCart';
-import useFavorites from './hooks/useFavorites';
 import cakeData from './data/CakeData';
 
 const bannerImages = [
@@ -125,7 +124,6 @@ function AppContent() {
   const navigate = useNavigate();
 
   const { cartItems, stock, addToCart, updateQuantity, clearCart } = useCart();
-  const { isFavorite, toggleFavorite } = useFavorites();
 
   const [user, setUser] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -209,8 +207,6 @@ function AppContent() {
                 isLoading={isLoading}
                 error={error}
                 searchTerm={searchTerm}
-                isFavorite={isFavorite}
-                onToggleFavorite={toggleFavorite}
               />
             }
           />
